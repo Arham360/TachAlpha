@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:tach_demo/Messenger/MessageList.dart';
+import 'package:tach_demo/Settings/settings.dart';
+import 'package:tach_demo/Tach/Tach.dart';
 import 'package:tach_demo/bottomNavigation/fab_bottom_app_bar.dart';
 import 'package:tach_demo/bottomNavigation/layout.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:tach_demo/contacts/contacts.dart';
+import 'package:tach_demo/contacts/ContactScreen.dart';
+import 'package:tach_demo/notification/notificationPage.dart';
 import 'package:tach_demo/profile/profile.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -16,19 +20,37 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   int selected = 0;
+  int fab = 0;
+
+  final icons = [Icons.sms, Icons.mail, Icons.phone];
 
   void _selectedTab(int index) {
     setState(() {
      // _lastSelected = 'TAB: $index';
+      fab = index;
       selected = index;
-      widget.title = index.toString();
+      widget.title = getTitle(index);
     });
   }
 
-  void _selectedFab(int index) {
-    setState(() {
-     // _lastSelected = 'FAB: $index';
-    });
+  String getTitle(int index) {
+    switch (index) {
+      case 0:
+        return "Contacts";
+        break;
+      case 1:
+        return "Messages";
+        break;
+      case 2:
+        return "Tach";
+        break;
+      case 3:
+        return "Notifications";
+        break;
+      case 4:
+        return "Settings";
+        break;
+    }
   }
 
   @override
@@ -36,13 +58,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
     final List<Widget> _children = [
       ContactList("hi"),
-      ContactList("bi"),
-      ContactList("di"),
-      ContactList("cri"),
+      MessageList(),
+      Tach(),
+      NotificationPage(),
+      SettingsPage(),
     ];
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.grey,
         title: Text(widget.title),
         leading: IconButton(icon: Icon(Icons.create), onPressed: null),
         actions: <Widget>[
@@ -54,13 +79,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 child: Hero(
                   /// Hero
                   tag: 'logo',
-                  child: new CircleAvatar(
-                    minRadius: 18.0,
-                    maxRadius: 18.0,
-                    backgroundImage: new AssetImage('images/tony.jpg'),
-                  ),
+                child: ClipOval(
+                  child: Image.asset("images/tony.jpg",fit: BoxFit.cover,),
                 ),
-              ))
+                ),
+              )
+          )
           //RaisedButton(onPressed: null,child: Image.network("https://cdn.newsapi.com.au/image/v1/bb9b894d3ea95cdd0bcbaf0a6393914d?width=316"),)
           //IconButton(icon: Icon(Icons.insert_emoticon), onPressed: null)
         ],
@@ -78,28 +102,29 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         centerItemText: '',
         color: Colors.grey,
         selectedColor: Colors.blue,
-        notchedShape: CircularNotchedRectangle(),
+        //notchedShape: CircularNotchedRectangle(),
         onTabSelected: _selectedTab,
         items: [
           FABBottomAppBarItem(iconData: Icons.contacts, text: ''),
           FABBottomAppBarItem(iconData: Icons.message, text: ''),
+          FABBottomAppBarItem(iconData: Icons.person, text: ''),
           FABBottomAppBarItem(iconData: Icons.notifications, text: ''),
           FABBottomAppBarItem(iconData: Icons.settings, text: ''),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: _buildFab(
-          context), // This trailing comma makes auto-formatting nicer for build methods.
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: _buildFab(context), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
   Widget _buildFab(BuildContext context) {
-    final icons = [Icons.sms, Icons.mail, Icons.phone];
+
     return AnchoredOverlay(
       showOverlay: true,
       overlayBuilder: (context, offset) {
         return CenterAbout(
-            position: Offset(offset.dx, offset.dy - icons.length * 55.0),
+            position: Offset(offset.dx, offset.dy - icons.length),
             child: Center());
       },
       child: FloatingActionButton(
@@ -144,9 +169,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         },
         tooltip: 'Tach',
         child: Icon(
-          Icons.perm_contact_calendar,
+          icons[fab],
         ),
-        elevation: 2.0,
+        elevation: 20.0,
       ),
     );
   }

@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage>
         onNotification: (overscroll) {
           overscroll.disallowGlow();
         },
-        child: SingleChildScrollView(
+        child: Container(
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height >= 775.0
@@ -72,20 +72,26 @@ class _LoginPageState extends State<LoginPage>
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(top: 75.0),
-                      child: new Image(
-                          width: 250.0,
-                          height: 191.0,
-                          fit: BoxFit.fill,
-                          image: new AssetImage('assets/img/login_logo.png')),
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 75.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15.0),
+                          child: new Image(
+//                          width: 250.0,
+//                          height: 100.0,
+                              fit: BoxFit.fill,
+                              image: new AssetImage('images/vic.jpg')),
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 20.0),
                       child: _buildMenuBar(context),
                     ),
                     Expanded(
-                      flex: 2,
+                      flex: 3,
                       child: PageView(
                         controller: _pageController,
                         onPageChanged: (i) {
@@ -663,6 +669,6 @@ class _LoginPageState extends State<LoginPage>
 
   _navigateToMainScreen(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MyHomePage(title: "Hi Vic",)));
+        context, MaterialPageRoute(builder: (context) => MyHomePage(title: "Contacts",)));
   }
 }

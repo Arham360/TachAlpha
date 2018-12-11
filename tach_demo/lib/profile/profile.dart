@@ -56,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage>
     return new Scaffold(
       body: new Stack(
         children: <Widget>[
-          _buildTimeline(),
+          //_buildTimeline(),
           _buildIamge(),
           _buildTopHeader(),
           _buildProfileRow(),
@@ -92,13 +92,14 @@ class _ProfilePageState extends State<ProfilePage>
       bottom: null,
       child: new ClipPath(
         clipper: new DialogonalClipper(),
-        child: new Image.asset(
-          'images/ironman.jpg',
-          fit: BoxFit.cover,
-          height: _imageHeight,
-          colorBlendMode: BlendMode.srcOver,
-          color: new Color.fromARGB(120, 20, 10, 40),
-        ),
+        child: FadeInImage.assetNetwork(fadeInDuration: Duration(seconds: 1),height: _imageHeight,fit: BoxFit.cover,placeholder: "images/ironman.jpg", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtODsR0T7Le-g15PzZjhjl_mxV9NH1TzAc4wwZRANKlml0uVNjHg"),
+//        child: new Image.asset(
+//          'images/ironman.jpg',
+//          fit: BoxFit.cover,
+//          height: _imageHeight,
+//          colorBlendMode: BlendMode.srcOver,
+//          color: new Color.fromARGB(120, 20, 10, 40),
+//        ),
       ),
     );
   }
@@ -203,10 +204,25 @@ class _ProfilePageState extends State<ProfilePage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildMyTasksHeader(),
-          _buildTasksList(),
+          //_buildTasksList(),
+          _buildSocialMediaIcons(),
           _buildFlippingQRCard(),
         ],
       ),
+    );
+  }
+
+  Widget _buildSocialMediaIcons(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+
+        RaisedButton(
+          onPressed: _socialMediaIconPressed,
+          child: Icon(Icons.person,),
+          shape: CircleBorder(side: BorderSide(width: 2.0,color: Colors.blue)),
+        )
+      ],
     );
   }
 
@@ -280,15 +296,16 @@ class _ProfilePageState extends State<ProfilePage>
     return new Padding(
       padding: new EdgeInsets.only(left: 64.0),
       child: new Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           new Text(
             widget.name,
-            style: new TextStyle(fontSize: 34.0),
+            textAlign: TextAlign.center,
+            style: new TextStyle(fontSize: 34.0,decorationStyle: TextDecorationStyle.wavy),
           ),
           new Text(
             'A genius, billionaire, playboy philanthropist',
-            style: new TextStyle(color: Colors.grey, fontSize: 12.0),
+            style: new TextStyle(color: Colors.grey, fontSize: 14.0),
           ),
         ],
       ),
@@ -319,4 +336,6 @@ class _ProfilePageState extends State<ProfilePage>
   _backButtonPressed() {
     Navigator.pop(context,true);
   }
+
+  _socialMediaIconPressed() {}
 }
