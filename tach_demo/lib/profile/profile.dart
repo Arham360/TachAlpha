@@ -206,23 +206,110 @@ class _ProfilePageState extends State<ProfilePage>
           _buildMyTasksHeader(),
           //_buildTasksList(),
           _buildSocialMediaIcons(),
-          _buildFlippingQRCard(),
+          _buildCarousel(context, 1)
+          //_buildFlippingQRCard(),
+//          Expanded(
+//            child: ListView.builder(
+//              padding: EdgeInsets.symmetric(vertical: 16.0),
+//              itemBuilder: (BuildContext context, int index) {
+//                if(index % 2 == 0) {
+//                  return _buildCarousel(context, index ~/ 2);
+//                }
+//                else {
+//                  return Divider();
+//                }
+//              },
+//            ),
+//          ),
         ],
       ),
     );
   }
 
   Widget _buildSocialMediaIcons(){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
+    return Padding(
+      padding: const EdgeInsets.only(top: 10.0),
+      child: Container(
+        color: Colors.red,
+        child: Row(
 
-        RaisedButton(
-          onPressed: _socialMediaIconPressed,
-          child: Icon(Icons.person,),
-          shape: CircleBorder(side: BorderSide(width: 2.0,color: Colors.blue)),
-        )
-      ],
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+          children: <Widget>[
+
+            Padding(
+              padding: const EdgeInsets.only(top: 10,bottom: 10, left: 0, right: 0),
+              child: new RawMaterialButton(
+                highlightColor: Colors.pink,
+                onPressed: () => _socialMediaIconPressed(),
+                child: new Icon(
+                  Icons.favorite,
+                  color: Colors.redAccent,
+                  size: 25.0,
+                ),
+                shape: new CircleBorder(),
+                elevation: 4.0,
+                fillColor: Colors.white,
+                padding: const EdgeInsets.all(15.0),
+              ),
+            ),
+            new RawMaterialButton(
+              highlightColor: Colors.pink,
+              onPressed: () => _socialMediaIconPressed(),
+              child: new Icon(
+                Icons.favorite,
+                color: Colors.blue,
+                size: 25.0,
+              ),
+              shape: new CircleBorder(),
+              elevation: 4.0,
+              fillColor: Colors.white,
+              padding: const EdgeInsets.all(15.0),
+            ),
+            new RawMaterialButton(
+              highlightColor: Colors.pink,
+              onPressed: () => _socialMediaIconPressed(),
+              child: new Icon(
+                Icons.favorite,
+                color: Colors.redAccent,
+                size: 25.0,
+              ),
+              shape: new CircleBorder(),
+              elevation: 4.0,
+              fillColor: Colors.white,
+              padding: const EdgeInsets.all(15.0),
+            ),
+            new RawMaterialButton(
+              highlightColor: Colors.pink,
+              onPressed: () => _socialMediaIconPressed(),
+              child: new Icon(
+                Icons.favorite,
+                color: Colors.redAccent,
+                size: 25.0,
+              ),
+              shape: new CircleBorder(),
+              elevation: 4.0,
+              fillColor: Colors.white,
+              padding: const EdgeInsets.all(15.0),
+            ),
+//            new RawMaterialButton(
+//              highlightColor: Colors.pink,
+//              onPressed: () => _socialMediaIconPressed(),
+//              child: new Icon(
+//                Icons.favorite,
+//                color: Colors.redAccent,
+//                size: 25.0,
+//              ),
+//              shape: new CircleBorder(),
+//              elevation: 4.0,
+//              fillColor: Colors.white,
+//              padding: const EdgeInsets.all(15.0),
+//            ),
+
+
+          ],
+        ),
+      ),
     );
   }
 
@@ -337,5 +424,40 @@ class _ProfilePageState extends State<ProfilePage>
     Navigator.pop(context,true);
   }
 
+  Widget _buildCarousel(BuildContext context, int carouselIndex) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Text('Carousel $carouselIndex'),
+        SizedBox(
+          // you may want to use an aspect ratio here for tablet support
+          height: 200.0,
+          child: PageView.builder(
+            // store this controller in a State to save the carousel scroll position
+            controller: PageController(viewportFraction: 0.8),
+            itemBuilder: (BuildContext context, int itemIndex) {
+              //return _buildCarouselItem(context, carouselIndex, itemIndex);
+              return _buildFlippingQRCard();
+            },
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildCarouselItem(BuildContext context, int carouselIndex, int itemIndex) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 4.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey,
+          borderRadius: BorderRadius.all(Radius.circular(4.0)),
+        ),
+      ),
+    );
+  }
+
+
   _socialMediaIconPressed() {}
 }
+

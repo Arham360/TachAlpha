@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:tach_demo/Tach/scan.dart';
 
 class Tach extends StatefulWidget {
   @override
@@ -34,8 +35,11 @@ class TachState extends State<Tach> {
               ),
             ),
           ),
+          Text(
+            DateTime.now().toString()
+          ),
           RaisedButton(
-            onPressed: () => printStuff(),
+            onPressed: () => navigateToScanning(),
             color: Colors.white,
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(30.0)),
@@ -50,10 +54,12 @@ class TachState extends State<Tach> {
     );
   }
 
+  navigateToScanning() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ScanScreen()),
+    );
 
-
-  printStuff() {
-    print("wokring");
   }
 
 }
