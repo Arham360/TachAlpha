@@ -10,9 +10,7 @@ import 'package:tach_demo/notification/notificationPage.dart';
 import 'package:tach_demo/profile/profile.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  String title;
+  MyHomePage({Key key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => new _MyHomePageState();
@@ -20,55 +18,41 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   int selected = 0;
-  int fab = 0;
+  String title;
 
-  final icons = [Icons.sms, Icons.mail, Icons.phone];
+  final titles = ["Contacts", "Messages", "Tach", "Notifications", "Settings"];
+
+  final List<Widget> _children = [
+    ContactList("hi"),
+    MessageList(),
+    Tach(),
+    NotificationPage(),
+    SettingsPage(),
+  ];
 
   void _selectedTab(int index) {
     setState(() {
-     // _lastSelected = 'TAB: $index';
-      fab = index;
       selected = index;
-      widget.title = getTitle(index);
+      title = titles[index];
     });
   }
 
-  String getTitle(int index) {
-    switch (index) {
-      case 0:
-        return "Contacts";
-        break;
-      case 1:
-        return "Messages";
-        break;
-      case 2:
-        return "Tach";
-        break;
-      case 3:
-        return "Notifications";
-        break;
-      case 4:
-        return "Settings";
-        break;
-    }
+
+  @override
+  void initState() {
+    super.initState();
+    title = titles[selected];
+
   }
 
   @override
   Widget build(BuildContext context) {
 
-    final List<Widget> _children = [
-      ContactList("hi"),
-      MessageList(),
-      Tach(),
-      NotificationPage(),
-      SettingsPage(),
-    ];
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.grey,
-        title: Text(widget.title),
+        title: Text(title),
         leading: IconButton(icon: Icon(Icons.create), onPressed: null),
         actions: <Widget>[
           GestureDetector(
@@ -85,16 +69,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 ),
               )
           )
-          //RaisedButton(onPressed: null,child: Image.network("https://cdn.newsapi.com.au/image/v1/bb9b894d3ea95cdd0bcbaf0a6393914d?width=316"),)
-          //IconButton(icon: Icon(Icons.insert_emoticon), onPressed: null)
         ],
       ),
-//      body: Center(
-//        child: Text(
-//          _lastSelected,
-//          style: TextStyle(fontSize: 32.0),
-//        ),
-//      ),
         body: _children[selected],
 
       bottomNavigationBar: FABBottomAppBar(
@@ -102,7 +78,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         centerItemText: '',
         color: Colors.grey,
         selectedColor: Colors.blue,
-        //notchedShape: CircularNotchedRectangle(),
         onTabSelected: _selectedTab,
         items: [
           FABBottomAppBarItem(iconData: Icons.contacts, text: ''),
@@ -111,74 +86,71 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           FABBottomAppBarItem(iconData: Icons.notifications, text: ''),
           FABBottomAppBarItem(iconData: Icons.settings, text: ''),
         ],
-      ),
-
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: _buildFab(context), // This trailing comma makes auto-formatting nicer for build methods.
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-  Widget _buildFab(BuildContext context) {
-
-    return AnchoredOverlay(
-      showOverlay: true,
-      overlayBuilder: (context, offset) {
-        return CenterAbout(
-            position: Offset(offset.dx, offset.dy - icons.length),
-            child: Center());
-      },
-      child: FloatingActionButton(
-        backgroundColor: Colors.blue,
-        onPressed: () {
-          showModalBottomSheet(
-              context: context,
-              builder: (BuildContext context) {
-                final bodyHeight = MediaQuery.of(context).size.height -
-                    MediaQuery.of(context).viewInsets.bottom;
-                return Container(
-                  color: const Color(0xFFFFFFFF),
-                  child: Column(
-                    children: <Widget>[
-                      Expanded(
-                        child: Center(
-                          child: RepaintBoundary(
-                            //key: globalKey,
-                            child: QrImage(
-                              data: "Arham",
-                              size: 0.3 * bodyHeight,
-                            ),
-                          ),
-                        ),
-                      ),
-                      RaisedButton(
-                        onPressed: () => printStuff(),
-                        color: Colors.white,
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0)),
-                        child: Text("Scan",
-                            style:
-                                TextStyle(color: Colors.blue, fontSize: 20.0)),
-                      ),
-                      Container(
-                        height: 45.0,
-                      )
-                    ],
-                  ),
-                );
-              });
-        },
-        tooltip: 'Tach',
-        child: Icon(
-          icons[fab],
-        ),
-        elevation: 20.0,
-      ),
-    );
-  }
-
-  printStuff() {
-    print("wokring");
-  }
+//  Widget _buildFab(BuildContext context) {
+//
+//    return AnchoredOverlay(
+//      showOverlay: true,
+//      overlayBuilder: (context, offset) {
+//        return CenterAbout(
+//            position: Offset(offset.dx, offset.dy - icons.length),
+//            child: Center());
+//      },
+//      child: FloatingActionButton(
+//        backgroundColor: Colors.blue,
+//        onPressed: () {
+//          showModalBottomSheet(
+//              context: context,
+//              builder: (BuildContext context) {
+//                final bodyHeight = MediaQuery.of(context).size.height -
+//                    MediaQuery.of(context).viewInsets.bottom;
+//                return Container(
+//                  color: const Color(0xFFFFFFFF),
+//                  child: Column(
+//                    children: <Widget>[
+//                      Expanded(
+//                        child: Center(
+//                          child: RepaintBoundary(
+//                            //key: globalKey,
+//                            child: QrImage(
+//                              data: "Arham",
+//                              size: 0.3 * bodyHeight,
+//                            ),
+//                          ),
+//                        ),
+//                      ),
+//                      RaisedButton(
+//                        onPressed: () => printStuff(),
+//                        color: Colors.white,
+//                        shape: new RoundedRectangleBorder(
+//                            borderRadius: new BorderRadius.circular(30.0)),
+//                        child: Text("Scan",
+//                            style:
+//                                TextStyle(color: Colors.blue, fontSize: 20.0)),
+//                      ),
+//                      Container(
+//                        height: 45.0,
+//                      )
+//                    ],
+//                  ),
+//                );
+//              });
+//        },
+//        tooltip: 'Tach',
+//        child: Icon(
+//          icons[fab],
+//        ),
+//        elevation: 20.0,
+//      ),
+//    );
+//  }
+//
+//  printStuff() {
+//    print("wokring");
+//  }
 
   _navigateToProfile(BuildContext context, String s) {
     Navigator.push(

@@ -49,6 +49,14 @@ flutter:
     - images/tony.jpg
     - images/vic.jpg
     - images/ironman.jpg
+
+    - images/_backgrounds/welcome_background.imageset/welcome_background@1x.jpeg
+    - images/_backgrounds/welcome_background.imageset/welcome_background@2x.png
+    - images/_backgrounds/welcome_background.imageset/welcome_background@3x.png
+
+    - images/_backgrounds/welcome_background_clean.imageset/welcome_background_clean@1x.png
+    - images/_backgrounds/welcome_background_clean.imageset/welcome_background_clean@2x.png
+    - images/_backgrounds/welcome_background_clean.imageset/welcome_background_clean@3x.png
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 

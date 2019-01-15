@@ -7,14 +7,14 @@ import 'package:tach_demo/loginPage/theme.dart' as Theme;
 
 
 
-class LoginPage extends StatefulWidget {
-  LoginPage({Key key}) : super(key: key);
+class Login extends StatefulWidget {
+  Login({Key key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => new _LoginPageState();
+  _LoginState createState() => new _LoginState();
 }
 
-class _LoginPageState extends State<LoginPage>
+class _LoginState extends State<Login>
     with SingleTickerProviderStateMixin {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -668,7 +668,7 @@ class _LoginPageState extends State<LoginPage>
   }
 
   _navigateToMainScreen(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MyHomePage(title: "Contacts",)));
+//    Navigator.push(
+//        context, MaterialPageRoute(builder: (context) => MyHomePage(title: "Contacts",)));
   }
 }
