@@ -37,23 +37,26 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     });
   }
 
-
   @override
   void initState() {
     super.initState();
     title = titles[selected];
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.grey,
-        title: Text(title),
-        leading: IconButton(icon: Icon(Icons.create), onPressed: null),
+        automaticallyImplyLeading: false,
+        elevation: 4.0,
+        backgroundColor: Colors.black54,
+        titleSpacing: 5,
+        title: Text(
+          title,
+          style: TextStyle(color: Colors.white, fontSize: 35, letterSpacing: 1.3),
+          //textScaleFactor: 1.6,
+        ),
+        //leading: IconButton(icon: Icon(Icons.create), onPressed: null),
         actions: <Widget>[
           GestureDetector(
               onTap: () => _navigateToProfile(context, "Tony Stark"),
@@ -63,15 +66,21 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 child: Hero(
                   /// Hero
                   tag: 'logo',
-                child: ClipOval(
-                  child: Image.asset("images/tony.jpg",fit: BoxFit.cover,),
+                  child: ClipOval(
+                    child: Container(
+                        color: Colors.blue,
+                        padding: EdgeInsets.all(2),
+                        child: ClipOval(
+                            child: Image.asset(
+                          "images/tony.jpg",
+                          fit: BoxFit.cover,
+                        ))),
+                  ),
                 ),
-                ),
-              )
-          )
+              ))
         ],
       ),
-        body: _children[selected],
+      body: _children[selected],
 
       bottomNavigationBar: FABBottomAppBar(
         backgroundColor: Colors.black54,
@@ -86,22 +95,27 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           FABBottomAppBarItem(iconData: Icons.notifications, text: ''),
           FABBottomAppBarItem(iconData: Icons.settings, text: ''),
         ],
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
+      floatingActionButton: _buildFab(context),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-//  Widget _buildFab(BuildContext context) {
-//
-//    return AnchoredOverlay(
-//      showOverlay: true,
-//      overlayBuilder: (context, offset) {
-//        return CenterAbout(
-//            position: Offset(offset.dx, offset.dy - icons.length),
-//            child: Center());
-//      },
-//      child: FloatingActionButton(
-//        backgroundColor: Colors.blue,
-//        onPressed: () {
+  Widget _buildFab(BuildContext context) {
+
+    return AnchoredOverlay(
+      showOverlay: true,
+      overlayBuilder: (context, offset) {
+        return CenterAbout(
+            position: Offset(offset.dx, offset.dy - 1),
+            child: Center());
+      },
+      child: FloatingActionButton(
+        backgroundColor: Colors.lightBlue,
+        onPressed: () {
+
+          _selectedTab(2);
+
 //          showModalBottomSheet(
 //              context: context,
 //              builder: (BuildContext context) {
@@ -138,19 +152,27 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 //                  ),
 //                );
 //              });
-//        },
-//        tooltip: 'Tach',
-//        child: Icon(
-//          icons[fab],
-//        ),
-//        elevation: 20.0,
-//      ),
-//    );
-//  }
-//
-//  printStuff() {
-//    print("wokring");
-//  }
+        },
+        tooltip: 'Tach',
+        child: ClipOval(
+          child: Container(
+            color: Colors.white,
+            padding: EdgeInsets.all(10),
+            child: ClipOval(
+              child: Icon(
+                Icons.title,
+              ),
+            ),
+          ),
+        ),
+        elevation: 20.0,
+      ),
+    );
+  }
+
+  printStuff() {
+    print("wokring");
+  }
 
   _navigateToProfile(BuildContext context, String s) {
     Navigator.push(

@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
       ),
       //home: new MyHomePage(title: 'Contacts'),
-      home: new SplashPage()
+      home: new MyHomePage()
     );
   }
 }

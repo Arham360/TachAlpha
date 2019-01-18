@@ -128,11 +128,6 @@ class _ProfilePageState extends State<ProfilePage>
 //              ),
             ),
           ),
-          IconButton(
-              icon: Icon(
-            Icons.menu,
-            color: Colors.white,
-          ))
         ],
       ),
     );
@@ -226,90 +221,46 @@ class _ProfilePageState extends State<ProfilePage>
     );
   }
 
+
+
+  Widget _socialIcons(){
+    return Padding(
+      padding: const EdgeInsets.only(top: 10,bottom: 10, left: 0, right: 0),
+      child: new RawMaterialButton(
+        highlightColor: Colors.pink,
+        onPressed: () => _socialMediaIconPressed(),
+        child: new Icon(
+          Icons.favorite,
+          color: Colors.redAccent,
+          size: 25.0,
+        ),
+        shape: new CircleBorder(),
+        elevation: 4.0,
+        fillColor: Colors.white,
+        padding: const EdgeInsets.all(15.0),
+      ),
+    );
+  }
+
   Widget _buildSocialMediaIcons(){
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: Container(
-        color: Colors.red,
-        child: Row(
-
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
+        height: 100,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
           children: <Widget>[
-
-            Padding(
-              padding: const EdgeInsets.only(top: 10,bottom: 10, left: 0, right: 0),
-              child: new RawMaterialButton(
-                highlightColor: Colors.pink,
-                onPressed: () => _socialMediaIconPressed(),
-                child: new Icon(
-                  Icons.favorite,
-                  color: Colors.redAccent,
-                  size: 25.0,
-                ),
-                shape: new CircleBorder(),
-                elevation: 4.0,
-                fillColor: Colors.white,
-                padding: const EdgeInsets.all(15.0),
-              ),
-            ),
-            new RawMaterialButton(
-              highlightColor: Colors.pink,
-              onPressed: () => _socialMediaIconPressed(),
-              child: new Icon(
-                Icons.favorite,
-                color: Colors.blue,
-                size: 25.0,
-              ),
-              shape: new CircleBorder(),
-              elevation: 4.0,
-              fillColor: Colors.white,
-              padding: const EdgeInsets.all(15.0),
-            ),
-            new RawMaterialButton(
-              highlightColor: Colors.pink,
-              onPressed: () => _socialMediaIconPressed(),
-              child: new Icon(
-                Icons.favorite,
-                color: Colors.redAccent,
-                size: 25.0,
-              ),
-              shape: new CircleBorder(),
-              elevation: 4.0,
-              fillColor: Colors.white,
-              padding: const EdgeInsets.all(15.0),
-            ),
-            new RawMaterialButton(
-              highlightColor: Colors.pink,
-              onPressed: () => _socialMediaIconPressed(),
-              child: new Icon(
-                Icons.favorite,
-                color: Colors.redAccent,
-                size: 25.0,
-              ),
-              shape: new CircleBorder(),
-              elevation: 4.0,
-              fillColor: Colors.white,
-              padding: const EdgeInsets.all(15.0),
-            ),
-//            new RawMaterialButton(
-//              highlightColor: Colors.pink,
-//              onPressed: () => _socialMediaIconPressed(),
-//              child: new Icon(
-//                Icons.favorite,
-//                color: Colors.redAccent,
-//                size: 25.0,
-//              ),
-//              shape: new CircleBorder(),
-//              elevation: 4.0,
-//              fillColor: Colors.white,
-//              padding: const EdgeInsets.all(15.0),
-//            ),
-
-
+            Container(width: 100.0, child: _socialIcons(),),
+            Container(width: 100.0, child: _socialIcons(),),
+            Container(width: 100.0,child: _socialIcons(),),
+            Container(width: 100.0, child: _socialIcons()),
+            Container(width: 100.0, child: _socialIcons(),),
+            Container(width: 100.0, child: _socialIcons(),),
+            Container(width: 100.0,child: _socialIcons(),),
+            Container(width: 100.0, child: _socialIcons()),
           ],
-        ),
-      ),
+        )
+      )
     );
   }
 
@@ -445,17 +396,6 @@ class _ProfilePageState extends State<ProfilePage>
     );
   }
 
-  Widget _buildCarouselItem(BuildContext context, int carouselIndex, int itemIndex) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 4.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey,
-          borderRadius: BorderRadius.all(Radius.circular(4.0)),
-        ),
-      ),
-    );
-  }
 
 
   _socialMediaIconPressed() {}
